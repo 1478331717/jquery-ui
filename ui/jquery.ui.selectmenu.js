@@ -74,7 +74,6 @@ $.widget( "ui.selectmenu", {
 			id: this.ids.button,
 			width: this.element.outerWidth(),
 			role: "combobox",
-			"aria-expanded": false,
 			"aria-autocomplete": "list",
 			"aria-owns": this.ids.menu,
 			"aria-haspopup": true,
@@ -110,7 +109,6 @@ $.widget( "ui.selectmenu", {
 		// create menu portion, append to body
 		this.menu = $( "<ul>", {
 			"aria-hidden": true,
-			"aria-labelledby": this.ids.button,
 			id: this.ids.menu
 		});
 
@@ -146,9 +144,6 @@ $.widget( "ui.selectmenu", {
 					}
 				}
 				that.focus = item.index;
-
-				// Set ARIA active decendent
-				that.button.attr( "aria-activedescendant", that.menuItems.eq( item.index ).find( "a" ).attr( "id" ) );
 			},
 			// set ARIA role
 			role: "listbox"
@@ -234,8 +229,6 @@ $.widget( "ui.selectmenu", {
 		var id = this._getSelectedItem().find( "a" ).attr( "id" );
 		this.isOpen = false;
 		this._toggleAttr();
-		this.button.attr( "aria-activedescendant", id );
-		this.menu.attr( "aria-activedescendant", id );
 		this._trigger( "close", event );
 	},
 
@@ -416,7 +409,6 @@ $.widget( "ui.selectmenu", {
 		}
 		this.menuWrap.toggleClass( "ui-selectmenu-open", this.isOpen );
 		this.menu.attr( "aria-hidden", !this.isOpen);
-		this.button.attr( "aria-expanded", this.isOpen);
 	},
 
 	_getCreateOptions: function() {
